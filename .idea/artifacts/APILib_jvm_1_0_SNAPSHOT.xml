@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="APILib-jvm-1.0-SNAPSHOT">
+    <output-path>$PROJECT_DIR$/build/libs</output-path>
+    <root id="archive" name="APILib-jvm-1.0-SNAPSHOT.jar">
+      <element id="module-output" name="APILib.jvmMain" />
+    </root>
+  </artifact>
+</component>
