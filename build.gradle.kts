@@ -59,6 +59,8 @@ kotlin {
         val jvmMain by getting {
             dependencies {
                 implementation(libs.ktor.client.java)
+                implementation(libs.kotlin.reflect)
+//                implementation(libs.java.jsonschema.generator)
             }
         }
         val jvmTest by getting
