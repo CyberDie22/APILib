@@ -61,50 +61,6 @@ sealed class OpenAIApi(val apiKey: String) {
     }
 }
 
-fun greetUser(usersName: String): String {
-    return "Hello, $usersName!"
-}
-
-fun main() = runBlocking {
-    var completion = OpenAIApi.Chat("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").completions(
-        "gpt-4",
-        listOf(
-            Message(
-                role = Message.Role.User,
-                content = "Hello, I'm Ben. I'm a software engineer.",
-            ),
-        ),
-        functions = listOf(
-            Function.fromKFunction(::greetUser, "Gives a greeting to the user."),
-        ),
-    )
-
-    if (completion.choices.first().message.functionCall != null) {
-        val functionResult = completion.choices.first().message.functionCall!!.call()
-
-        completion = OpenAIApi.Chat("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").completions(
-            "gpt-4",
-            listOf(
-                Message(
-                    role = Message.Role.User,
-                    content = "Hello, I'm Ben. I'm a software engineer.",
-                ),
-                completion.choices.first().message,
-                Message(
-                    role = Message.Role.Function,
-                    content = functionResult.toString(),
-                    name = completion.choices.first().message.functionCall?.name,
-                )
-            ),
-            functions = listOf(
-                Function.fromKFunction(::greetUser, "Gives a greeting to the user."),
-            ),
-        )
-    }
-
-    println(completion.choices.first().message.content)
-}
-
 @Serializable
 data class ChatCompletionResponse(
     val id: String,
