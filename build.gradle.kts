@@ -1,19 +1,25 @@
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
     alias(libs.plugins.kotlinx.serialization)
+    id("maven-publish")
+//    id("signing")
 }
 
 group = "com.benbuzard"
-version = "1.0-SNAPSHOT"
+val archivesBaseName = "apilib"
+version = "0.1.0"
 
 repositories {
     mavenCentral()
 }
 
 kotlin {
+    withSourcesJar()
+
     jvm {
         jvmToolchain(19)
         withJava()
+
         testRuns.named("test") {
             executionTask.configure {
                 useJUnitPlatform()
@@ -66,3 +72,8 @@ kotlin {
         val jvmTest by getting
     }
 }
+
+//signing {
+//    sign(configurations.archives.get())
+//}
+
